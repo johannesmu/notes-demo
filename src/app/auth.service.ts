@@ -24,5 +24,13 @@ export class AuthService {
     });
   }
 
-  signOut() {}
+  signOut() {
+    this.afAuth.auth.signOut()
+    .then( () => {
+
+    })
+    .catch( () => {
+      
+    });
+  }
 }

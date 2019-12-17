@@ -19,6 +19,13 @@
           </ion-menu-toggle>
         </ion-list>
       </ion-content>
+      <ion-footer>
+        <ion-toolbar>
+          <ion-buttons>
+            <ion-button *ngIf="user">Sign Out</ion-button>
+          </ion-buttons>
+        </ion-toolbar>
+      </ion-footer>
     </ion-menu>
     <ion-router-outlet id="main-content"></ion-router-outlet>
   </ion-split-pane>

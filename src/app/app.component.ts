@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { Subscription } from 'rxjs';
 
 import { Platform } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
@@ -21,7 +20,8 @@ export class AppComponent {
       icon: 'home'
     }
   ];
-  private user: any;
+
+  public user: any;
 
   constructor(
     private platform: Platform,
@@ -42,8 +42,8 @@ export class AppComponent {
   }
 
   initializeNavigation() {
-    this.authservice.authStatus.subscribe((userData) => {
-      if (userData) {
+    this.authservice.authStatus.subscribe((data) => {
+      if (data) {
         this.appPages = [
           {
             title: 'Home',
@@ -51,7 +51,7 @@ export class AppComponent {
             icon: 'home'
           }
         ];
-        this.user = userData;
+        this.user = data.user;
       }
       else {
         this.appPages = [
@@ -64,5 +64,9 @@ export class AppComponent {
         this.user = null;
       }
     })
+  }
+
+  signOut() {
+    this.authservice.signOut();
   }
 }
