@@ -8,12 +8,8 @@ const routes: Routes = [
     pathMatch: 'full'
   },
   {
-    path: 'home',
-    loadChildren: () => import('./home/home.module').then(m => m.HomePageModule)
-  },
-  {
-    path: 'list',
-    loadChildren: () => import('./list/list.module').then(m => m.ListPageModule)
+    path: 'notes',
+    loadChildren: () => import('./notes/notes.module').then( m => m.NotesPageModule)
   },
   {
     path: 'signin',
@@ -22,7 +18,16 @@ const routes: Routes = [
   {
     path: 'signup',
     loadChildren: () => import('./signup/signup.module').then( m => m.SignupPageModule)
+  },
+  {
+    path: 'notes',
+    loadChildren: () => import('./notes/notes.module').then( m => m.NotesPageModule)
+  },
+  {
+    path: 'note-add',
+    loadChildren: () => import('./note-add/note-add.module').then( m => m.NoteAddPageModule)
   }
+
 ];
 
 @NgModule({

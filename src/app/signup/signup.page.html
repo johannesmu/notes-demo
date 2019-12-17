@@ -1,5 +1,8 @@
 <ion-header>
   <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-button>Close</ion-button>
+    </ion-buttons>
     <ion-title>Sign Up</ion-title>
   </ion-toolbar>
 </ion-header>
@@ -15,7 +18,21 @@
         <ion-label position="stacked">Password</ion-label>
         <ion-input type="password" name="password" formControlName="password" placeholder="minimum 6 characters"></ion-input>
       </ion-item>
-      <ion-button [disabled]="!signUpForm.valid" type="submit" color="tertiary" expand="block" (click)="submit()" >Sign Up</ion-button>
+      <ion-grid>
+        <ion-row>
+          <ion-col>
+            <ion-button [disabled]="!signUpForm.valid" type="submit" color="tertiary" expand="block" (click)="submit()" >
+              Sign Up
+            </ion-button>
+          </ion-col>
+          <ion-col>
+              <ion-button color="warning" expand="block" (click)="close()" >
+                Close
+              </ion-button>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+      
     </ion-list>
   </form>
 </ion-content>

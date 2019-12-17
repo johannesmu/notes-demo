@@ -8,8 +8,8 @@ import { Validators, FormBuilder, FormGroup } from '@angular/forms';
   styleUrls: ['./signup.page.scss'],
 })
 export class SignupPage implements OnInit {
-  private signUpForm:FormGroup;
-  constructor( private modal:ModalController, private formBuilder:FormBuilder ) { }
+  private signUpForm: FormGroup;
+  constructor( private modal: ModalController, private formBuilder: FormBuilder ) { }
 
   ngOnInit() {
     this.signUpForm = this.formBuilder.group({
@@ -23,5 +23,8 @@ export class SignupPage implements OnInit {
       email: this.signUpForm.controls.email.value,
       password: this.signUpForm.controls.password.value
     });
+  }
+  close() {
+    this.modal.dismiss();
   }
 }
