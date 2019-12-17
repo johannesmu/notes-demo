@@ -15,14 +15,14 @@ export class SigninPage implements OnInit {
     private modal: ModalController,
     private authservice: AuthService,
     private formBuilder: FormBuilder
-  ) 
+  )
   { }
 
   ngOnInit() {
     this.signInForm = this.formBuilder.group({
       email: [ '', [Validators.required, Validators.email ] ],
       password: [ '', [Validators.required, Validators.minLength(6) ] ]
-    })
+    });
   }
 
   signIn() {

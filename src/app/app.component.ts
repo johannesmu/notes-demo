@@ -28,8 +28,7 @@ export class AppComponent {
     private splashScreen: SplashScreen,
     private statusBar: StatusBar,
     private authservice: AuthService
-  )
-  {
+  ) {
     this.initializeApp();
     this.initializeNavigation();
   }
@@ -52,8 +51,7 @@ export class AppComponent {
           }
         ];
         this.user = data.user;
-      }
-      else {
+      } else {
         this.appPages = [
           {
             title: 'Sign In',
@@ -63,7 +61,7 @@ export class AppComponent {
         ];
         this.user = null;
       }
-    })
+    });
   }
 
   signOut() {

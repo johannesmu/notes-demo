@@ -17,11 +17,12 @@ export class AuthService {
     });
   }
 
-  signUp( email, password ) {
-    this.afAuth.auth.createUserWithEmailAndPassword( email, password )
+  async signUp( email, password ) {
+    const auth = await this.afAuth.auth.createUserWithEmailAndPassword( email, password )
     .then( ( user ) => {
       this.authStatus.next( user );
     });
+    return await auth;
   }
 
   signOut() {
@@ -30,7 +31,7 @@ export class AuthService {
 
     })
     .catch( () => {
-      
+
     });
   }
 }
