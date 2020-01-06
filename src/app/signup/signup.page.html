@@ -1,7 +1,9 @@
 <ion-header>
   <ion-toolbar>
     <ion-buttons slot="start">
-      <ion-button>Close</ion-button>
+      <ion-button (click)="close()">
+        <ion-icon name="close"></ion-icon>
+      </ion-button>
     </ion-buttons>
     <ion-title>Sign Up</ion-title>
   </ion-toolbar>
@@ -20,14 +22,14 @@
       </ion-item>
       <ion-grid>
         <ion-row>
-          <ion-col>
+          <ion-col size="9">
             <ion-button [disabled]="!signUpForm.valid" type="submit" color="tertiary" expand="block" (click)="submit()" >
               Sign Up
             </ion-button>
           </ion-col>
           <ion-col>
-              <ion-button color="warning" expand="block" (click)="close()" >
-                Close
+              <ion-button color="medium" expand="block" (click)="close()" >
+                <ion-icon name="close"></ion-icon>
               </ion-button>
           </ion-col>
         </ion-row>

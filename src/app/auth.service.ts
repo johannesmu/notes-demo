@@ -1,37 +1,47 @@
 import { Injectable } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/auth';
-import { BehaviorSubject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
-  authStatus = new BehaviorSubject(null);
 
   constructor( private afAuth: AngularFireAuth) {  }
 
   signIn( email, password ) {
-    this.afAuth.auth.signInWithEmailAndPassword( email, password )
-    .then( (user) => {
-      this.authStatus.next( user );
+    return new Promise( ( resolve, reject ) => {
+      this.afAuth.auth.signInWithEmailAndPassword( email, password )
+      .then( (user) => {
+        resolve( user )
+      })
+      .catch( (error) => {
+        reject( error )
+      });
     });
   }
 
-  async signUp( email, password ) {
-    const auth = await this.afAuth.auth.createUserWithEmailAndPassword( email, password )
-    .then( ( user ) => {
-      this.authStatus.next( user );
+  signUp( email, password ) {
+    return new Promise( ( resolve, reject ) => {
+      this.afAuth.auth.createUserWithEmailAndPassword( email, password )
+      .then( ( user ) => {
+        resolve( user )
+      })
+      .catch( ( error ) => {
+        reject( error )
+      });
     });
-    return await auth;
   }
 
   signOut() {
-    this.afAuth.auth.signOut()
-    .then( () => {
-
+    return new Promise( ( resolve, reject ) => {
+      this.afAuth.auth.signOut()
+      .then( () => {
+        resolve( true )
+      })
+      .catch( ( error ) => {
+        reject( false )
+      });      
     })
-    .catch( () => {
-
-    });
+    
   }
 }

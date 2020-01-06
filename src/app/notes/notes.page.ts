@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ModalController } from '@ionic/angular';
 
 @Component({
   selector: 'app-notes',
@@ -7,7 +8,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class NotesPage implements OnInit {
 
-  constructor() { }
+  constructor( modal:ModalController ) { }
 
   ngOnInit() {
   }

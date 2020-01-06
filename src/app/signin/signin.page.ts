@@ -3,6 +3,7 @@ import { ModalController } from '@ionic/angular';
 import { Validators, FormBuilder, FormGroup } from '@angular/forms';
 import { SignupPage } from '../signup/signup.page';
 import { AuthService } from '../auth.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-signin',
@@ -14,7 +15,8 @@ export class SigninPage implements OnInit {
   constructor(
     private modal: ModalController,
     private authservice: AuthService,
-    private formBuilder: FormBuilder
+    private formBuilder: FormBuilder,
+    private router: Router
   )
   { }
 
@@ -28,7 +30,10 @@ export class SigninPage implements OnInit {
   signIn() {
     const email = this.signInForm.controls.email.value;
     const password = this.signInForm.controls.password.value;
-    this.authservice.signIn( email, password );
+    this.authservice.signIn( email, password )
+    .then( (res) => {
+      this.router.navigate(['/notes'])
+    })
   }
 
   async signUp() {
@@ -39,7 +44,10 @@ export class SigninPage implements OnInit {
       // handle signup response
       if ( response.data ) {
         const data = response.data;
-        this.authservice.signUp( data.email, data.password );
+        this.authservice.signUp( data.email, data.password )
+        .then( (res) => {
+          this.router.navigate(['/notes'])
+        })
       }
     });
     await signUpModal.present();

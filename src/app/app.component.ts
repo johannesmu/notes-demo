@@ -1,9 +1,10 @@
 import { Component } from '@angular/core';
 
-import { Platform } from '@ionic/angular';
+import { Platform, MenuController } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
 
+import { AngularFireAuth } from '@angular/fire/auth';
 import { AuthService } from '../app/auth.service';
 
 
@@ -27,7 +28,9 @@ export class AppComponent {
     private platform: Platform,
     private splashScreen: SplashScreen,
     private statusBar: StatusBar,
-    private authservice: AuthService
+    private afAuth: AngularFireAuth,
+    private authService: AuthService,
+    private menuCtrl: MenuController
   ) {
     this.initializeApp();
     this.initializeNavigation();
@@ -41,7 +44,7 @@ export class AppComponent {
   }
 
   initializeNavigation() {
-    this.authservice.authStatus.subscribe((data) => {
+    this.afAuth.authState.subscribe( (data) => {
       if (data) {
         this.appPages = [
           {
@@ -50,11 +53,11 @@ export class AppComponent {
             icon: 'home'
           }
         ];
-        this.user = data.user;
+        this.user = data;
       } else {
         this.appPages = [
           {
-            title: 'Sign In',
+            title: 'Sign In / Sign Up',
             url: '/signin',
             icon: 'log-in'
           }
@@ -65,6 +68,10 @@ export class AppComponent {
   }
 
   signOut() {
-    this.authservice.signOut();
+    this.authService.signOut()
+    .then( (res) => {
+      this.menuCtrl.close()
+    })
+    .catch( (error) => {})
   }
 }
