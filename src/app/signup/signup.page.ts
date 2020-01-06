@@ -24,4 +24,9 @@ export class SignupPage implements OnInit {
       password: this.signUpForm.controls.password.value
     });
   }
+
+  close() {
+    console.log('closed');
+    this.modal.dismiss();
+  }
 }

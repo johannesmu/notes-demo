@@ -1,0 +1,11 @@
+ion-content {
+  form {
+    margin-top: 15vh;
+    ion-list {
+      .button-center {
+        display: flex;
+        justify-content: center;
+      }
+    }
+  }
+}
