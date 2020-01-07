@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ModalController } from '@ionic/angular';
+import { ModalController, ToastController } from '@ionic/angular';
 import { SignupPage } from '../signup/signup.page';
 import { AuthService } from '../auth.service';
 import { Router } from '@angular/router';
@@ -17,7 +17,8 @@ export class SigninPage implements OnInit {
     private modal: ModalController,
     private auth: AuthService,
     private router: Router,
-    private formBuilder: FormBuilder
+    private formBuilder: FormBuilder.
+    private toast: ToastController
   ) { }
 
   ngOnInit() {
@@ -55,6 +56,7 @@ export class SigninPage implements OnInit {
           })
           .catch((error) => {
             // handle errors
+            console.log(error);
           })
       }
     })
