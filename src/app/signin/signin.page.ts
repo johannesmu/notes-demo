@@ -17,7 +17,7 @@ export class SigninPage implements OnInit {
     private modal: ModalController,
     private auth: AuthService,
     private router: Router,
-    private formBuilder: FormBuilder.
+    private formBuilder: FormBuilder,
     private toast: ToastController
   ) { }
 
@@ -36,7 +36,7 @@ export class SigninPage implements OnInit {
         this.router.navigate(['/notes'])
       })
       .catch((error) => {
-        console.log(error)
+        this.handleSignInErrors(error);
       })
   }
 
@@ -57,9 +57,56 @@ export class SigninPage implements OnInit {
           .catch((error) => {
             // handle errors
             console.log(error);
+            this.handleSignUpErrors( error );
           })
       }
     })
     await signUpModal.present();
+  }
+
+  handleSignUpErrors(error) {
+    switch( error.code ) {
+      case 'auth/email-already-in-use' :
+        this.displayMessage('the email address cannot be used');
+        break;
+      case 'auth/invalid-email' :
+        this.displayMessage('the email address is not valid');
+        break;
+      case 'auth/operation-not-allowed' :
+        this.displayMessage('the sign up process does is not functional');
+        break;
+      case 'auth/weak-password' :
+        this.displayMessage('the password is too weak');
+        break;
+      default: 
+        break;
+    }
+  }
+
+  handleSignInErrors( error ) {
+    switch( error.code ) {
+      case 'auth/invalid-email' :
+        this.displayMessage('the email address is not valid');
+        break;
+      case 'auth/user-disabled' :
+        this.displayMessage('the account has been disabled');
+        break;
+      case 'auth/user-not-found' :
+        this.displayMessage('the credentials do not match our records');
+        break;
+      case 'auth/wrong-password' :
+        this.displayMessage('cannot sign in due to wrong credentials');
+        break;
+      default: 
+        break;
+    }
+  }
+
+  async displayMessage( msg ) {
+    const openToast = await this.toast.create({
+      message: msg,
+      duration: 3000
+    });
+    openToast.present();
   }
 }
