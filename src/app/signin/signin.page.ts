@@ -25,7 +25,7 @@ export class SigninPage implements OnInit {
     this.signInForm = this.formBuilder.group({
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required, Validators.minLength(6)]]
-    })
+    });
   }
 
   signIn() {
@@ -33,11 +33,11 @@ export class SigninPage implements OnInit {
     const password = this.signInForm.controls.password.value;
     this.auth.signIn(email, password)
       .then((response) => {
-        this.router.navigate(['/notes'])
+        this.router.navigate(['/notes']);
       })
       .catch((error) => {
         this.handleSignInErrors(error);
-      })
+      });
   }
 
   async signUp() {
@@ -46,7 +46,7 @@ export class SigninPage implements OnInit {
     });
     signUpModal.onDidDismiss().then((response) => {
       if (response.data) {
-        //handle signup response
+        // handle signup response
         const email = response.data.email;
         const password = response.data.password;
         this.auth.signUp(email, password)
@@ -58,14 +58,14 @@ export class SigninPage implements OnInit {
             // handle errors
             console.log(error);
             this.handleSignUpErrors( error );
-          })
+          });
       }
-    })
+    });
     await signUpModal.present();
   }
 
   handleSignUpErrors(error) {
-    switch( error.code ) {
+    switch ( error.code ) {
       case 'auth/email-already-in-use' :
         this.displayMessage('the email address cannot be used');
         break;
@@ -78,13 +78,13 @@ export class SigninPage implements OnInit {
       case 'auth/weak-password' :
         this.displayMessage('the password is too weak');
         break;
-      default: 
+      default:
         break;
     }
   }
 
   handleSignInErrors( error ) {
-    switch( error.code ) {
+    switch ( error.code ) {
       case 'auth/invalid-email' :
         this.displayMessage('the email address is not valid');
         break;
@@ -97,7 +97,7 @@ export class SigninPage implements OnInit {
       case 'auth/wrong-password' :
         this.displayMessage('cannot sign in due to wrong credentials');
         break;
-      default: 
+      default:
         break;
     }
   }
