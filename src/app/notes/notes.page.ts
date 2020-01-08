@@ -1,4 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { DataService } from '../data.service';
+import { ModalController } from '@ionic/angular';
+import { AddPage } from '../add/add.page';
+
 
 @Component({
   selector: 'app-notes',
@@ -7,9 +11,23 @@ import { Component, OnInit } from '@angular/core';
 })
 export class NotesPage implements OnInit {
 
-  constructor() { }
+  constructor( private data: DataService, private modal:ModalController ) { }
 
   ngOnInit() {
   }
 
+  async addNote() {
+    const addModal = await this.modal.create({ component: AddPage });
+    addModal.onDidDismiss()
+      .then( (response) => {
+        if( response.data ) {
+          // create note
+          this.data.addNote( response.data );
+        }
+      })
+      .catch( (error) => {
+        console.log(error);
+      });
+    addModal.present();
+  }
 }
