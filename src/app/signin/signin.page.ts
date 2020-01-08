@@ -33,6 +33,7 @@ export class SigninPage implements OnInit {
     const password = this.signInForm.controls.password.value;
     this.auth.signIn(email, password)
       .then((response) => {
+        this.signInForm.reset();
         this.router.navigate(['/notes']);
       })
       .catch((error) => {
@@ -105,7 +106,8 @@ export class SigninPage implements OnInit {
   async displayMessage( msg ) {
     const openToast = await this.toast.create({
       message: msg,
-      duration: 3000
+      duration: 3000,
+      color: 'tertiary'
     });
     openToast.present();
   }
