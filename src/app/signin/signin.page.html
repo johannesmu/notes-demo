@@ -1,10 +1,13 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>Sign in</ion-title>
+    <ion-title>Notes app</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
+  <div class="logo-container">
+    <img class="logo" src="assets/logo.svg">
+  </div>
   <form [formGroup]="signInForm" id="sign-in">
     <ion-list>
       <ion-item>
@@ -17,10 +20,10 @@
       </ion-item>
       <ion-button [disabled]="!signInForm.valid" expand="block" type="submit" color="secondary" (click)="signIn()">Sign in</ion-button>
       <ion-item>
-        <ion-label>Don't have an account?</ion-label>
+        <ion-label class="sign-up-label">Don't have an account?</ion-label>
       </ion-item>
       <div class="button-center">
-        <ion-button type="button" color="dark" (click)="signUp()">
+        <ion-button type="button" fill="clear" (click)="signUp()">
           Sign up
         </ion-button>
       </div>
