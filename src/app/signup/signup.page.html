@@ -13,14 +13,14 @@
   <form [formGroup]="signUpForm">
     <ion-list>
       <ion-item>
-        <ion-label position="stacked">Email</ion-label>
+        <ion-label position="stacked">Your email address</ion-label>
         <ion-input type="email" name="email" formControlName="email" placeholder="email@domain.com"></ion-input>
       </ion-item>
       <ion-item>
-        <ion-label position="stacked">Password</ion-label>
+        <ion-label position="stacked">Create a password</ion-label>
         <ion-input type="password" name="password" formControlName="password" placeholder="minimum 6 characters"></ion-input>
       </ion-item>
-      <ion-button [disabled]="!signUpForm.valid" type="submit" color="tertiary" expand="block" (click)="submit()" >Sign Up</ion-button>
+      <ion-button [disabled]="!signUpForm.valid" type="submit" color="dark" expand="block" (click)="submit()" >Sign Up</ion-button>
     </ion-list>
   </form>
 </ion-content>

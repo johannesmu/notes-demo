@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ModalController } from '@ionic/angular';
+import { ModalController, ToastController } from '@ionic/angular';
 import { SignupPage } from '../signup/signup.page';
 import { AuthService } from '../auth.service';
 import { Router } from '@angular/router';

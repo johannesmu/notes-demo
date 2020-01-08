@@ -14,6 +14,8 @@ export class NotesPage implements OnInit {
   constructor( private data: DataService, private modal:ModalController ) { }
 
   ngOnInit() {
+    // check auth status
+    // get notes
   }
 
   async addNote() {
