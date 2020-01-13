@@ -11,8 +11,8 @@ import {Note} from '../../models/note.interface';
   styleUrls: ['./notes.page.scss'],
 })
 export class NotesPage implements OnInit {
-  public notes:Array<Note> = new Array();
-  constructor( private data: DataService, private modal:ModalController ) { }
+  public notes: Array<Note> = new Array();
+  constructor( private data: DataService, private modal: ModalController ) { }
 
   ngOnInit() {
     // check auth status
@@ -24,7 +24,7 @@ export class NotesPage implements OnInit {
     const addModal = await this.modal.create({ component: AddPage });
     addModal.onDidDismiss()
       .then( (response) => {
-        if( response.data ) {
+        if ( response.data ) {
           // create note
           this.data.addNote( response.data );
         }
