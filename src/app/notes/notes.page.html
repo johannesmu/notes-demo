@@ -13,4 +13,16 @@
       <ion-icon name="add"></ion-icon>
     </ion-fab-button>
   </ion-fab>
+  <ion-searchbar color="tertiary"></ion-searchbar>
+  <ion-grid>
+    <ion-row>
+      <ion-col *ngFor="let note of notes" size="6" (click)="getNoteDetail(note.id)">
+        <ion-card>
+        <ion-card-header>
+          {{note.name}}
+        </ion-card-header>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
 </ion-content>
