@@ -30,7 +30,7 @@ export class DataService {
         // this.notes$ = this.getNotes();
         this.getNotes().subscribe((data) => {
           this.notes$.next(data);
-        })
+        });
       }
     });
   }
