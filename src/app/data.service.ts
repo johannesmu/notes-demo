@@ -40,6 +40,7 @@ export class DataService {
   }
 
   getNotes() {
+    // this function retuns an Observable
     return this.notesCollection.snapshotChanges()
       .pipe( map(actions => actions.map(a => {
           const data = a.payload.doc.data() as Note;
