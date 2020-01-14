@@ -1,3 +1,9 @@
 ion-content {
   --background: lightpink;
+  ion-card{
+    ion-card-title {
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+  }
 }

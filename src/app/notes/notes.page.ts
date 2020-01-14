@@ -3,6 +3,7 @@ import { DataService } from '../data.service';
 import { ModalController } from '@ionic/angular';
 import { AddPage } from '../add/add.page';
 import {Note} from '../../models/note.interface';
+import { NoteDetailPage } from '../note-detail/note-detail.page';
 
 
 @Component({
@@ -35,14 +36,30 @@ export class NotesPage implements OnInit {
     addModal.present();
   }
 
-  async getNotes() {
+  getNotes() {
     this.data.notes$.subscribe((data) => {
-      console.log(data);
       this.notes = data;
     });
   }
 
-  getNoteDetail(id) {
-    console.log(id);
+  async getNoteDetail( note ) {
+    const detailModal = await this.modal.create({ component: NoteDetailPage, componentProps: {
+      "name": note.name,
+      "note": note.note,
+      "date": note.date,
+      "id": note.id
+    } });
+    detailModal.onDidDismiss()
+      .then( (response) => {
+        if ( response.data ) {
+          // save note
+          // console.log( response.data );
+          this.data.updateNote( response.data );
+        }
+      })
+      .catch( (error) => {
+        console.log(error);
+      });
+    detailModal.present();
   }
 }
