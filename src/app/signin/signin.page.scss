@@ -1,0 +1,25 @@
+ion-content {
+  .logo-container{
+    display: flex;
+    justify-content: center;
+    .logo{
+      max-width: 50vw;
+    }
+  }
+  form {
+    margin-top: 3rem;
+    ion-list {
+      .button-center {
+        display: flex;
+        justify-content: center;
+      }
+      ion-item{
+        ion-label.sign-up-label {
+          text-align: center;
+          font-size: 0.8rem;
+          margin-top: 5rem;
+        }
+      }
+    }
+  }
+}

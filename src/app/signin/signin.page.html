@@ -1,14 +1,14 @@
 <ion-header>
   <ion-toolbar>
-    <ion-buttons slot="start">
-      <ion-menu-button></ion-menu-button>
-    </ion-buttons>
-    <ion-title>Sign in</ion-title>
+    <ion-title>Notes app</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
-  <form [formGroup]="signInForm">
+  <div class="logo-container">
+    <img class="logo" src="assets/logo.svg">
+  </div>
+  <form [formGroup]="signInForm" id="sign-in">
     <ion-list>
       <ion-item>
         <ion-label position="stacked">Email</ion-label>
@@ -18,13 +18,15 @@
         <ion-label position="stacked">Password</ion-label>
         <ion-input formControlName="password" type="password" placeholder="password" name="password"></ion-input>
       </ion-item>
-      <ion-button expand="block" type="submit" color="secondary" [disabled]="!signInForm.valid" (click)="signIn()">Sign in</ion-button>
+      <ion-button [disabled]="!signInForm.valid" expand="block" type="submit" color="secondary" (click)="signIn()">Sign in</ion-button>
       <ion-item>
-        <ion-label>Don't have an account?</ion-label>
-      </ion-item>      
-      <ion-button expand="block" type="button" color="tertiary" (click)="signUp()">
-        Sign up
-      </ion-button>     
+        <ion-label class="sign-up-label">Don't have an account?</ion-label>
+      </ion-item>
+      <div class="button-center">
+        <ion-button type="button" fill="clear" (click)="signUp()">
+          Sign up
+        </ion-button>
+      </div>
     </ion-list>
   </form>
 </ion-content>

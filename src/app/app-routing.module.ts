@@ -8,8 +8,12 @@ const routes: Routes = [
     pathMatch: 'full'
   },
   {
-    path: 'notes',
-    loadChildren: () => import('./notes/notes.module').then( m => m.NotesPageModule)
+    path: 'home',
+    loadChildren: () => import('./home/home.module').then(m => m.HomePageModule)
+  },
+  {
+    path: 'list',
+    loadChildren: () => import('./list/list.module').then(m => m.ListPageModule)
   },
   {
     path: 'signin',
@@ -24,8 +28,12 @@ const routes: Routes = [
     loadChildren: () => import('./notes/notes.module').then( m => m.NotesPageModule)
   },
   {
-    path: 'note-add',
-    loadChildren: () => import('./note-add/note-add.module').then( m => m.NoteAddPageModule)
+    path: 'add',
+    loadChildren: () => import('./add/add.module').then( m => m.AddPageModule)
+  },
+  {
+    path: 'note-detail',
+    loadChildren: () => import('./note-detail/note-detail.module').then( m => m.NoteDetailPageModule)
   }
 
 ];

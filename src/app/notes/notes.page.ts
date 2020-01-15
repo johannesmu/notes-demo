@@ -1,5 +1,10 @@
 import { Component, OnInit } from '@angular/core';
+import { DataService } from '../data.service';
 import { ModalController } from '@ionic/angular';
+import { AddPage } from '../add/add.page';
+import {Note} from '../../models/note.interface';
+import { NoteDetailPage } from '../note-detail/note-detail.page';
+
 
 @Component({
   selector: 'app-notes',
@@ -7,10 +12,54 @@ import { ModalController } from '@ionic/angular';
   styleUrls: ['./notes.page.scss'],
 })
 export class NotesPage implements OnInit {
-
-  constructor( modal:ModalController ) { }
+  public notes: Array<Note> = new Array();
+  constructor( private data: DataService, private modal: ModalController ) { }
 
   ngOnInit() {
+    // check auth status
+    // get notes
+    this.getNotes();
   }
 
+  async addNote() {
+    const addModal = await this.modal.create({ component: AddPage });
+    addModal.onDidDismiss()
+      .then( (response) => {
+        if ( response.data ) {
+          // create note
+          this.data.addNote( response.data );
+        }
+      })
+      .catch( (error) => {
+        console.log(error);
+      });
+    addModal.present();
+  }
+
+  getNotes() {
+    this.data.notes$.subscribe((data) => {
+      this.notes = data;
+    });
+  }
+
+  async getNoteDetail( note ) {
+    const detailModal = await this.modal.create({ component: NoteDetailPage, componentProps: {
+      "name": note.name,
+      "note": note.note,
+      "date": note.date,
+      "id": note.id
+    } });
+    detailModal.onDidDismiss()
+      .then( (response) => {
+        if ( response.data ) {
+          // save note
+          // console.log( response.data );
+          this.data.updateNote( response.data );
+        }
+      })
+      .catch( (error) => {
+        console.log(error);
+      });
+    detailModal.present();
+  }
 }

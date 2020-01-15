@@ -1,0 +1,37 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-button (click)="close()">
+        <ion-icon name="close"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title>note-detail</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <form [formGroup]="detailForm">
+    <ion-list>
+      <ion-item>
+        <ion-label position="stacked">Name</ion-label>
+        <ion-input name="name" formControlName="name"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label position="stacked">Note</ion-label>
+        <ion-textarea name="note" formControlName="note"></ion-textarea>
+      </ion-item>
+    </ion-list>
+  </form>
+</ion-content>
+
+<ion-footer>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-button color="danger" (click)="delete()">Delete</ion-button>
+    </ion-buttons>
+    <ion-buttons slot="end">
+      <ion-button *ngIf="edited" color="success" (click)="save()">Save</ion-button>
+      <ion-button (click)="close()">Close</ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-footer>

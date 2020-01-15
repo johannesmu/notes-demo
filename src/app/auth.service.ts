@@ -6,42 +6,29 @@ import { AngularFireAuth } from '@angular/fire/auth';
 })
 export class AuthService {
 
-  constructor( private afAuth: AngularFireAuth) {  }
-
-  signIn( email, password ) {
-    return new Promise( ( resolve, reject ) => {
-      this.afAuth.auth.signInWithEmailAndPassword( email, password )
-      .then( (user) => {
-        resolve( user )
-      })
-      .catch( (error) => {
-        reject( error )
-      });
-    });
-  }
+  constructor( private afAuth: AngularFireAuth) { }
 
   signUp( email, password ) {
-    return new Promise( ( resolve, reject ) => {
+    return new Promise( (resolve, reject) => {
       this.afAuth.auth.createUserWithEmailAndPassword( email, password )
-      .then( ( user ) => {
-        resolve( user )
+      .then( ( response ) => {
+        resolve( response );
       })
-      .catch( ( error ) => {
-        reject( error )
+      .catch( (error) => {
+        reject( error );
       });
     });
   }
 
-  signOut() {
-    return new Promise( ( resolve, reject ) => {
-      this.afAuth.auth.signOut()
-      .then( () => {
-        resolve( true )
-      })
-      .catch( ( error ) => {
-        reject( false )
-      });      
-    })
-    
+  signIn( email, password ) {
+    return new Promise( (resolve, reject) => {
+      this.afAuth.auth.signInWithEmailAndPassword( email, password )
+      .then( (response) => {
+        resolve( response );
+      } )
+      .catch( (error) => {
+        reject( error );
+      });
+    });
   }
 }

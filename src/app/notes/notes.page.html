@@ -8,5 +8,22 @@
 </ion-header>
 
 <ion-content>
-
+  <ion-fab vertical="bottom" horizontal="end">
+    <ion-fab-button color="tertiary" (click)="addNote()">
+      <ion-icon name="add"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+  <ion-searchbar color="tertiary"></ion-searchbar>
+  <ion-grid>
+    <ion-row>
+      <ion-col *ngFor="let note of notes" size="6" (click)="getNoteDetail(note)">
+        <ion-card color="light">
+        <ion-card-header>
+          <ion-card-title>{{note.name}}</ion-card-title>
+          <ion-card-subtitle>{{note.date.toDate() | date: 'd/M/yyyy hh:mm'}}</ion-card-subtitle>
+        </ion-card-header>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
 </ion-content>
