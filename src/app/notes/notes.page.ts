@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { DataService } from '../data.service';
-import { ModalController } from '@ionic/angular';
+import { ModalController, LoadingController } from '@ionic/angular';
 import { AddPage } from '../add/add.page';
 import {Note} from '../../models/note.interface';
 import { NoteDetailPage } from '../note-detail/note-detail.page';
+import { BehaviorSubject, ReplaySubject } from 'rxjs';
 
 
 @Component({
@@ -12,8 +13,14 @@ import { NoteDetailPage } from '../note-detail/note-detail.page';
   styleUrls: ['./notes.page.scss'],
 })
 export class NotesPage implements OnInit {
+
   public notes: Array<Note> = new Array();
-  constructor( private data: DataService, private modal: ModalController ) { }
+  private loadingState: ReplaySubject<boolean> = new ReplaySubject();
+  constructor( 
+    private data: DataService, 
+    private modal: ModalController,
+    private loading: LoadingController 
+    ) { }
 
   ngOnInit() {
     // check auth status
@@ -37,8 +44,12 @@ export class NotesPage implements OnInit {
   }
 
   getNotes() {
+    this.loadingState.next(true);
+    // show loading
+    this.showLoading();
     this.data.notes$.subscribe((data) => {
       this.notes = data;
+      this.loadingState.next(false);
     });
   }
 
@@ -61,5 +72,19 @@ export class NotesPage implements OnInit {
         console.log(error);
       });
     detailModal.present();
+  }
+
+  async showLoading() {
+    const loadingIndicator = await this.loading.create({
+      spinner: "bubbles"
+    });
+    this.loadingState.subscribe( (value) => {
+      if( value == true ) {
+        loadingIndicator.present();
+      }
+      else{
+        loadingIndicator.dismiss();
+      }
+    });
   }
 }
