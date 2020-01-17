@@ -16,6 +16,8 @@ import { AngularFireAuth } from '@angular/fire/auth';
 export class NotesPage implements OnInit {
 
   public notes: Array<Note> = new Array();
+  private notesData: Array<Note> = new Array();
+
   private loadingState: ReplaySubject<boolean> = new ReplaySubject();
   private notesSub: Subscription;
   private authSub: Subscription;
@@ -58,13 +60,30 @@ export class NotesPage implements OnInit {
   }
 
   getNotes() {
+    // set loading state to true to show spinner
     this.loadingState.next(true);
-    // show loading
+    // show loading spinner
     this.showLoading();
     this.notesSub = this.data.notes$.subscribe((data) => {
+      // store original data in notesData
+      this.notesData = data;
+      // store notes to display in notes
       this.notes = data;
       this.loadingState.next(false);
     });
+  }
+
+  filterNotes( event ) {
+    let searchTerm = event.target.value.toLowerCase();
+    this.notes = this.notesData.filter( (note) => {
+      if ( note.name.toLowerCase().indexOf( searchTerm ) !== -1 ) {
+        return note;
+      }
+    });
+  }
+
+  restoreNotes() {
+    this.notes = this.notesData;
   }
 
   async getNoteDetail( note ) {
