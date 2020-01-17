@@ -5,15 +5,16 @@
     </ion-buttons>
     <ion-title>notes</ion-title>
   </ion-toolbar>
+  <ion-searchbar color="tertiary" (ionInput)="filterNotes( $event )" (ionCancel)="restoreNotes()" debounce="1000"></ion-searchbar>
 </ion-header>
 
 <ion-content>
-  <ion-fab vertical="bottom" horizontal="end">
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed">
     <ion-fab-button color="tertiary" (click)="addNote()">
       <ion-icon name="add"></ion-icon>
     </ion-fab-button>
   </ion-fab>
-  <ion-searchbar color="tertiary"></ion-searchbar>
+  
   <ion-grid>
     <ion-row>
       <ion-col *ngFor="let note of notes" size="6" (click)="getNoteDetail(note)">
