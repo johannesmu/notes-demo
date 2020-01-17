@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { ModalController } from '@ionic/angular';
+import { ModalController, AlertController } from '@ionic/angular';
 import { Validators, FormBuilder, FormGroup } from '@angular/forms';
 import { DataService } from '../data.service';
 
@@ -17,7 +17,12 @@ export class NoteDetailPage implements OnInit {
   private detailForm: FormGroup;
   private edited: boolean = false;
 
-  constructor( private modal: ModalController, private formBuilder: FormBuilder, private data: DataService ) {}
+  constructor( 
+    private modal: ModalController, 
+    private formBuilder: FormBuilder, 
+    private data: DataService,
+    private alert: AlertController 
+  ) {}
 
   ngOnInit() {
     this.detailForm = this.formBuilder.group({
@@ -46,5 +51,30 @@ export class NoteDetailPage implements OnInit {
   delete() {
     this.data.deleteNote( this.id );
     this.modal.dismiss();
+  }
+
+  async showDeleteAlert( name ) {
+    const confirm = await this.alert.create({
+      header: 'Confirm deletion of note:',
+      message: `Are you sure you want to delete ${name}?`,
+      buttons: [
+        {
+          text: 'OK',
+          role: 'confirm'
+        }, 
+        {
+          text: 'Cancel',
+          role: 'cancel'
+        }
+      ],
+      backdropDismiss: false
+    });
+    confirm.onDidDismiss().then(( response ) => {
+      if( response.role == 'confirm' ) {
+        this.delete();
+        this.modal.dismiss();
+      }
+    });
+    await confirm.present();
   }
 }
