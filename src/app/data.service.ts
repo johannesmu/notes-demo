@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/firestore';
-import { Observable, Subscription, BehaviorSubject } from 'rxjs';
+import { Subscription, BehaviorSubject } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { Note } from '../models/note.interface';
 import { AngularFireAuth } from '@angular/fire/auth';
@@ -16,6 +16,7 @@ export class DataService {
   public notes$ = new BehaviorSubject<Note[]>([]);
   private uid: string;
   private authStatus: Subscription;
+  private ncSub: Subscription;
 
   constructor(private afs: AngularFirestore, private afauth: AngularFireAuth) {
     // get the user auth status
@@ -28,9 +29,12 @@ export class DataService {
         // set the collection
         this.notesCollection = afs.collection<Note>(path);
         // this.notes$ = this.getNotes();
-        this.getNotes().subscribe((data) => {
+        this.ncSub = this.getNotes().subscribe((data) => {
           this.notes$.next(data);
         });
+      }
+      else{
+        this.ncSub.unsubscribe();
       }
     });
   }

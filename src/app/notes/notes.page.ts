@@ -4,7 +4,8 @@ import { ModalController, LoadingController } from '@ionic/angular';
 import { AddPage } from '../add/add.page';
 import {Note} from '../../models/note.interface';
 import { NoteDetailPage } from '../note-detail/note-detail.page';
-import { BehaviorSubject, ReplaySubject } from 'rxjs';
+import { BehaviorSubject, ReplaySubject, Subscription } from 'rxjs';
+import { AngularFireAuth } from '@angular/fire/auth';
 
 
 @Component({
@@ -16,14 +17,27 @@ export class NotesPage implements OnInit {
 
   public notes: Array<Note> = new Array();
   private loadingState: ReplaySubject<boolean> = new ReplaySubject();
+  private notesSub: Subscription;
+  private authSub: Subscription;
+
   constructor( 
     private data: DataService, 
     private modal: ModalController,
-    private loading: LoadingController 
+    private loading: LoadingController,
+    private afAuth: AngularFireAuth 
     ) { }
 
   ngOnInit() {
     // check auth status
+    this.afAuth.authState.subscribe( (user) => {
+      if ( user ) {
+        this.getNotes();
+      }
+      else{
+        this.notesSub.unsubscribe();
+        //this.authSub.unsubscribe();
+      }
+    });
     // get notes
     this.getNotes();
   }
@@ -47,7 +61,7 @@ export class NotesPage implements OnInit {
     this.loadingState.next(true);
     // show loading
     this.showLoading();
-    this.data.notes$.subscribe((data) => {
+    this.notesSub = this.data.notes$.subscribe((data) => {
       this.notes = data;
       this.loadingState.next(false);
     });
