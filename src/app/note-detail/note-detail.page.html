@@ -5,13 +5,17 @@
         <ion-icon name="close"></ion-icon>
       </ion-button>
     </ion-buttons>
-    <ion-title>note-detail</ion-title>
+    <ion-title>Detail of {{name}}</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
   <form [formGroup]="detailForm">
     <ion-list>
+      <ion-item>
+        <ion-label position="stacked">Date</ion-label>
+        <ion-input name="date" readonly disabled>{{date.toDate() | date: 'dd/MM/yyyy hh:mm:ss'}}</ion-input>
+      </ion-item>
       <ion-item>
         <ion-label position="stacked">Name</ion-label>
         <ion-input name="name" formControlName="name"></ion-input>
@@ -21,17 +25,15 @@
         <ion-textarea name="note" formControlName="note"></ion-textarea>
       </ion-item>
     </ion-list>
+    <ion-button expand="block" color="secondary" (click)="close()">Cancel</ion-button>
+    <ion-button expand="block" color="primary" [disabled]="!edited">Save</ion-button>
   </form>
 </ion-content>
 
 <ion-footer>
   <ion-toolbar>
-    <ion-buttons slot="start">
-      <ion-button color="danger" (click)="delete()">Delete</ion-button>
-    </ion-buttons>
     <ion-buttons slot="end">
-      <ion-button *ngIf="edited" color="success" (click)="save()">Save</ion-button>
-      <ion-button (click)="close()">Close</ion-button>
+      <ion-button color="danger" expand="full">Delete</ion-button>
     </ion-buttons>
   </ion-toolbar>
 </ion-footer>

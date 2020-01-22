@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { DataService } from '../data.service';
-import { ModalController } from '@ionic/angular';
+import { ModalController, LoadingController } from '@ionic/angular';
 import { AddPage } from '../add/add.page';
 import {Note} from '../../models/note.interface';
 import { NoteDetailPage } from '../note-detail/note-detail.page';
@@ -12,8 +12,11 @@ import { NoteDetailPage } from '../note-detail/note-detail.page';
   styleUrls: ['./notes.page.scss'],
 })
 export class NotesPage implements OnInit {
+
   public notes: Array<Note> = new Array();
-  constructor( private data: DataService, private modal: ModalController ) { }
+  private searchTerm: string = '';
+
+  constructor( private data: DataService, private modal: ModalController, private loading: LoadingController ) { }
 
   ngOnInit() {
     // check auth status
@@ -37,9 +40,26 @@ export class NotesPage implements OnInit {
   }
 
   getNotes() {
+    this.showLoading();
     this.data.notes$.subscribe((data) => {
+      this.loading.dismiss();
       this.notes = data;
     });
+  }
+
+  filterNotes( notes ) {
+    const data = notes.filter( (note) => {
+      if( note.name.indexOf(this.searchTerm) !== -1 ) {
+        return note;
+      }
+    });
+    console.log(data);
+    return data;
+  }
+
+  updateSearch( event ) {
+    this.searchTerm = event.target.value;
+    this.notes = this.filterNotes( this.notes );
   }
 
   async getNoteDetail( note ) {
@@ -61,5 +81,12 @@ export class NotesPage implements OnInit {
         console.log(error);
       });
     detailModal.present();
+  }
+
+  async showLoading() {
+    const loader = await this.loading.create({
+      showBackdrop: false, spinner: "bubbles"
+    });
+    await loader.present();
   }
 }
