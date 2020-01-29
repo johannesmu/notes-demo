@@ -37,11 +37,11 @@ export class PictureService {
     });
   }
 
-  uploadImage() {
+  uploadImage( data ) {
     console.log( this.dataService.getUid() );
-    const file = event.target.files[0];
+    const file = data;
     const filePath = 'name-your-file-path-here';
-    const task = this.storage.upload(filePath, file);
+    const task = this.afStorage.upload(filePath, file);
   }
 
 
