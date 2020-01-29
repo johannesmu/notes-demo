@@ -12,9 +12,15 @@ import { AppRoutingModule } from './app-routing.module';
 import { AngularFireModule } from '@angular/fire';
 import { AngularFireAuthModule } from '@angular/fire/auth';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
+import { AngularFireStorageModule } from '@angular/fire/storage';
+
 import { environment } from '../environments/environment';
+// modal imports
 import { SignupPageModule } from './signup/signup.module';
 import { AddPageModule } from './add/add.module';
+import { NoteDetailPageModule } from './note-detail/note-detail.module';
+// camera 
+import { Camera, CameraOptions } from '@ionic-native/camera/ngx';
 
 @NgModule({
   declarations: [AppComponent],
@@ -26,13 +32,17 @@ import { AddPageModule } from './add/add.module';
     AngularFireModule.initializeApp( environment.firebase ),
     AngularFireAuthModule,
     AngularFirestoreModule,
+    AngularFireStorageModule,
     SignupPageModule,
-    AddPageModule
+    AddPageModule,
+    NoteDetailPageModule
   ],
   providers: [
     StatusBar,
     SplashScreen,
-    { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
+    { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
+    // camera provider
+    Camera
   ],
   bootstrap: [AppComponent]
 })
