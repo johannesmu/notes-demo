@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Validators, FormBuilder, FormGroup } from '@angular/forms';
 import { ModalController } from '@ionic/angular';
+import { PictureService } from '../picture.service';
 
 @Component({
   selector: 'app-add',
@@ -10,7 +11,11 @@ import { ModalController } from '@ionic/angular';
 export class AddPage implements OnInit {
   private addForm:FormGroup;
 
-  constructor( private formBuilder: FormBuilder, private modal:ModalController ) { 
+  constructor( 
+    private formBuilder: FormBuilder, 
+    private modal: ModalController,
+    private picture: PictureService 
+  ) { 
 
   }
 
@@ -32,5 +37,9 @@ export class AddPage implements OnInit {
     let date = new Date();
     let noteData = { name: name, date: date, note: note };
     this.modal.dismiss( noteData );
+  }
+
+  takePhoto() {
+    this.picture.takePicture();
   }
 }

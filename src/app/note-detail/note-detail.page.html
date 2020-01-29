@@ -13,12 +13,15 @@
   <form [formGroup]="detailForm">
     <ion-list>
       <ion-item>
+        Image
+      </ion-item>
+      <ion-item>
         <ion-label position="stacked">Name</ion-label>
         <ion-input name="name" formControlName="name"></ion-input>
       </ion-item>
       <ion-item>
         <ion-label position="stacked">Note</ion-label>
-        <ion-textarea name="note" formControlName="note"></ion-textarea>
+        <ion-textarea name="note" formControlName="note" rows="10"></ion-textarea>
       </ion-item>
     </ion-list>
     <ion-button type="submit" *ngIf="edited" color="success" expand="block" (click)="save()">
