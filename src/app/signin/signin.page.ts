@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ModalController, ToastController } from '@ionic/angular';
 import { SignupPage } from '../signup/signup.page';
 import { AuthService } from '../auth.service';
+import { AngularFireAuth } from '@angular/fire/auth';
 import { Router } from '@angular/router';
 import { Validators, FormGroup, FormBuilder } from '@angular/forms';
 
@@ -17,13 +18,19 @@ export class SigninPage implements OnInit {
     private modal: ModalController,
     private auth: AuthService,
     private router: Router,
-    private formBuilder: FormBuilder
+    private formBuilder: FormBuilder,
+    private afAuth: AngularFireAuth
   ) { }
 
   ngOnInit() {
     this.signInForm = this.formBuilder.group({
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required, Validators.minLength(6)]]
+    })
+    this.afAuth.authState.subscribe( (user) => {
+      if ( user ) {
+        this.router.navigate(['/notes']);
+      }
     })
   }
 
