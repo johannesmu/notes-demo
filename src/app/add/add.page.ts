@@ -11,8 +11,9 @@ import { Note } from '../../models/note.interface';
 })
 export class AddPage implements OnInit {
   private addForm:FormGroup;
+  private photoTaken: boolean = false;
   private uploading: boolean = false;
-  private photo:string;
+  private photo: string;
 
   constructor( 
     private formBuilder: FormBuilder, 
@@ -49,12 +50,14 @@ export class AddPage implements OnInit {
   }
 
   takePhoto() {
+    this.photoTaken = true;
     this.uploading = true;
-    console.log( 'taking photo...');
     this.picture.takePicture().then( (result:string) => {
       this.photo = result;
       this.uploading = false;
-      console.log( 'finished ' + result );
     })
+    .catch( (error) => {
+      console.log(error);
+    });
   }
 }

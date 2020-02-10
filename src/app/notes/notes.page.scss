@@ -13,5 +13,10 @@ ion-content {
     ion-card-subtitle {
       font-size: 0.8em;
     }
+    ion-card-content {
+      min-height: 5rem;
+      background-size: cover;
+      background-color: lightgrey;
+    }
   }
 }
