@@ -13,6 +13,7 @@ export class NoteDetailPage implements OnInit {
   @Input() date: Date;
   @Input() note: string;
   @Input() id: string;
+  @Input() image: string;
 
   private detailForm: FormGroup;
   private edited: boolean = false;

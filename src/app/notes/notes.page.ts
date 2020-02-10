@@ -51,6 +51,7 @@ export class NotesPage implements OnInit {
         if ( response.data ) {
           // create note
           this.data.addNote( response.data );
+          console.log( response.data );
         }
       })
       .catch( (error) => {
@@ -91,7 +92,8 @@ export class NotesPage implements OnInit {
       "name": note.name,
       "note": note.note,
       "date": note.date,
-      "id": note.id
+      "id": note.id,
+      "image" : (note.image) ? note.image : null
     } });
     detailModal.onDidDismiss()
       .then( (response) => {

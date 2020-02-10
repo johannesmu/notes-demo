@@ -12,8 +12,8 @@
 <ion-content>
   <form [formGroup]="detailForm">
     <ion-list>
-      <ion-item>
-        Image
+      <ion-item *ngIf="image">
+        <img [src]="image">
       </ion-item>
       <ion-item>
         <ion-label position="stacked">Name</ion-label>

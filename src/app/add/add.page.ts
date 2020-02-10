@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Validators, FormBuilder, FormGroup } from '@angular/forms';
 import { ModalController } from '@ionic/angular';
 import { PictureService } from '../picture.service';
+import { Note } from '../../models/note.interface';
 
 @Component({
   selector: 'app-add',
@@ -10,6 +11,8 @@ import { PictureService } from '../picture.service';
 })
 export class AddPage implements OnInit {
   private addForm:FormGroup;
+  private uploading: boolean = false;
+  private photo:string;
 
   constructor( 
     private formBuilder: FormBuilder, 
@@ -35,12 +38,23 @@ export class AddPage implements OnInit {
     let name = this.addForm.controls.name.value;
     let note = this.addForm.controls.note.value;
     let date = new Date();
-    let noteData = { name: name, date: date, note: note };
+    let image = (this.photo) ? this.photo : null;
+    let noteData: Note = { 
+      name: name, 
+      date: date, 
+      note: note,
+      image: image
+    };
     this.modal.dismiss( noteData );
   }
 
   takePhoto() {
-    this.picture.takePicture()
-    this.picture.downloadURL.subscribe( (url) => { console.log(url) })
+    this.uploading = true;
+    console.log( 'taking photo...');
+    this.picture.takePicture().then( (result:string) => {
+      this.photo = result;
+      this.uploading = false;
+      console.log( 'finished ' + result );
+    })
   }
 }
