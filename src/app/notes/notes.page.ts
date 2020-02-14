@@ -40,13 +40,12 @@ export class NotesPage implements OnInit {
       }
       else{
         this.notesSub.unsubscribe();
-        this.authSub.unsubscribe();
       }
     });
     // get notes
     this.getNotes();
     // subscribe to settings for displayPreview
-    //this.settings.displayPreview.subscribe( (value) => { this.displayPreview = value } );
+    this.settings.displayPreview.subscribe( (value) => { this.displayPreview = value } );
   }
 
   async addNote() {
