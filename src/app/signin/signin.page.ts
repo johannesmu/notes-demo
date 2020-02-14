@@ -23,14 +23,15 @@ export class SigninPage implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.signInForm = this.formBuilder.group({
-      email: ['', [Validators.required, Validators.email]],
-      password: ['', [Validators.required, Validators.minLength(6)]]
-    })
+    // redirect the user to notes page if signin is still valid
     this.afAuth.authState.subscribe( (user) => {
       if ( user ) {
         this.router.navigate(['/notes']);
       }
+    })
+    this.signInForm = this.formBuilder.group({
+      email: ['', [Validators.required, Validators.email]],
+      password: ['', [Validators.required, Validators.minLength(6)]]
     })
   }
 

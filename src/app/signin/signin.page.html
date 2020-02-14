@@ -1,15 +1,18 @@
 <ion-header>
-  <ion-toolbar>
-    <ion-title>Notes app</ion-title>
+  <ion-toolbar color="secondary">
+    <ion-title>99 Notes</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
   <div class="logo-container">
-    <img class="logo" src="assets/logo.svg">
+    <img class="logo" src="assets/logo.png">
   </div>
   <form [formGroup]="signInForm" id="sign-in">
-    <ion-list>
+    <ion-list lines="none">
+      <ion-list-header>
+        <h4 class="auth-title">Sign in to your an account</h4>
+      </ion-list-header>
       <ion-item>
         <ion-label position="stacked">Email</ion-label>
         <ion-input formControlName="email" type="email" placeholder="user@domain.com" name="email"></ion-input>
@@ -23,8 +26,8 @@
         <ion-label class="sign-up-label">Don't have an account?</ion-label>
       </ion-item>
       <div class="button-center">
-        <ion-button type="button" fill="clear" (click)="signUp()">
-          Sign up
+        <ion-button type="button" fill="clear" (click)="signUp()" class="auth-link">
+          Sign up for an account
         </ion-button>
       </div>
     </ion-list>

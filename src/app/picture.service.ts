@@ -68,6 +68,9 @@ export class PictureService {
         })
       ).subscribe();
     });
-    
+  }
+
+  deleteImage( url ) {
+    return this.afStorage.storage.refFromURL( url ).delete();
   }
 }

@@ -1,16 +1,16 @@
 <ion-header>
-  <ion-toolbar>
+  <ion-toolbar color="secondary">
     <ion-buttons slot="start">
       <ion-menu-button></ion-menu-button>
     </ion-buttons>
-    <ion-title>notes</ion-title>
+    <ion-title>99 Notes</ion-title>
   </ion-toolbar>
   <ion-searchbar color="tertiary" (ionInput)="filterNotes( $event )" (ionCancel)="restoreNotes()" debounce="1000" placeholder="Search notes"></ion-searchbar>
 </ion-header>
 
 <ion-content>
   <ion-fab vertical="bottom" horizontal="end" slot="fixed">
-    <ion-fab-button color="tertiary" (click)="addNote()">
+    <ion-fab-button color="secondary" (click)="addNote()">
       <ion-icon name="add"></ion-icon>
     </ion-fab-button>
   </ion-fab>
@@ -23,7 +23,7 @@
           <ion-card-title>{{note.name}}</ion-card-title>
           <ion-card-subtitle>{{note.date.toDate() | date: 'd/M/yyyy HH:mm'}}</ion-card-subtitle>
         </ion-card-header>
-        <ion-card-content [style.background-image]="'url(' + note.image + ')'">
+        <ion-card-content *ngIf="displayPreview" [style.background-image]="'url(' + note.image + ')'">
         </ion-card-content>
         </ion-card>
       </ion-col>

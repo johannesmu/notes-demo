@@ -49,7 +49,6 @@ export class AppComponent {
           {title: 'Settings' , url: '/settings', icon: 'settings'}
         ]
         this.user = user;
-        this.router.navigate( ['/notes'] );
       }
       else {
         this.appPages = [

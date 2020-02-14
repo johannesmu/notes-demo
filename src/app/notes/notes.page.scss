@@ -1,5 +1,13 @@
+ion-header {
+  ion-searchbar{
+    --background: var(--ion-color-secondary);
+  }
+  background: var(--ion-color-secondary);
+}
+
+
 ion-content {
-  --background: lightpink;
+  --background: var(--ion-color-tertiary);
   ion-card{
     ion-card-title {
       text-overflow: ellipsis;

@@ -2,6 +2,8 @@ import { Component, OnInit, Input } from '@angular/core';
 import { ModalController, AlertController } from '@ionic/angular';
 import { Validators, FormBuilder, FormGroup } from '@angular/forms';
 import { DataService } from '../data.service';
+import { PictureService } from '../picture.service';
+
 
 @Component({
   selector: 'app-note-detail',
@@ -22,7 +24,8 @@ export class NoteDetailPage implements OnInit {
     private modal: ModalController, 
     private formBuilder: FormBuilder, 
     private data: DataService,
-    private alert: AlertController 
+    private alert: AlertController,
+    private picture: PictureService
   ) {}
 
   ngOnInit() {

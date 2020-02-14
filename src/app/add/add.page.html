@@ -29,7 +29,7 @@
 
   <img *ngIf="photo" [src]="photo">
   
-  <ion-fab vertical="top" horizontal="end" slot="fixed">
+  <ion-fab vertical="top" horizontal="end" edge slot="fixed">
     <ion-fab-button color="tertiary" (click)="takePhoto()" [disabled]="!addForm.valid || photoTaken">
       <ion-icon name="camera"></ion-icon>
     </ion-fab-button>

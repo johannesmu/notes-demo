@@ -2,10 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { DataService } from '../data.service';
 import { ModalController, LoadingController } from '@ionic/angular';
 import { AddPage } from '../add/add.page';
-import {Note} from '../../models/note.interface';
+import { Note } from '../../models/note.interface';
 import { NoteDetailPage } from '../note-detail/note-detail.page';
-import { BehaviorSubject, ReplaySubject, Subscription } from 'rxjs';
+import { ReplaySubject, Subscription } from 'rxjs';
 import { AngularFireAuth } from '@angular/fire/auth';
+import { SettingsService } from '../settings.service';
 
 
 @Component({
@@ -21,12 +22,14 @@ export class NotesPage implements OnInit {
   private loadingState: ReplaySubject<boolean> = new ReplaySubject();
   private notesSub: Subscription;
   private authSub: Subscription;
+  private displayPreview: boolean = true;
 
   constructor( 
     private data: DataService, 
     private modal: ModalController,
     private loading: LoadingController,
-    private afAuth: AngularFireAuth 
+    private afAuth: AngularFireAuth,
+    private settings: SettingsService
     ) { }
 
   ngOnInit() {
@@ -37,11 +40,13 @@ export class NotesPage implements OnInit {
       }
       else{
         this.notesSub.unsubscribe();
-        //this.authSub.unsubscribe();
+        this.authSub.unsubscribe();
       }
     });
     // get notes
     this.getNotes();
+    // subscribe to settings for displayPreview
+    //this.settings.displayPreview.subscribe( (value) => { this.displayPreview = value } );
   }
 
   async addNote() {

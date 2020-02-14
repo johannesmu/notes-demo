@@ -1,5 +1,5 @@
 <ion-header>
-  <ion-toolbar>
+  <ion-toolbar color="secondary">
     <ion-buttons slot="start">
       <ion-button (click)="close()">
         <ion-icon name="close"></ion-icon>
@@ -10,8 +10,14 @@
 </ion-header>
 
 <ion-content>
+  <div class="logo-container">
+    <img class="logo" src="assets/logo.png">
+  </div>
   <form [formGroup]="signUpForm">
-    <ion-list>
+    <ion-list lines="none">
+      <ion-list-header>
+        <h4 class="auth-title">Sign up for an account</h4>
+      </ion-list-header>
       <ion-item>
         <ion-label position="stacked">Your email address</ion-label>
         <ion-input type="email" name="email" formControlName="email" placeholder="email@domain.com"></ion-input>
@@ -20,7 +26,17 @@
         <ion-label position="stacked">Create a password</ion-label>
         <ion-input type="password" name="password" formControlName="password" placeholder="minimum 6 characters"></ion-input>
       </ion-item>
-      <ion-button [disabled]="!signUpForm.valid" type="submit" color="dark" expand="block" (click)="submit()" >Sign Up</ion-button>
+      <ion-button [disabled]="!signUpForm.valid" type="submit" color="dark" expand="block" (click)="submit()" >
+        Sign Up
+      </ion-button>
+      <ion-item>
+        <ion-label class="sign-up-label">Already have an account?</ion-label>
+      </ion-item>
+      <div class="button-center">
+        <ion-button type="button" fill="clear" (click)="close()" class="auth-link">
+          Sign in to your account
+        </ion-button>
+      </div>
     </ion-list>
   </form>
 </ion-content>

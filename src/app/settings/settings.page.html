@@ -1,0 +1,31 @@
+<ion-header>
+  <ion-toolbar color="secondary">
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>Settings</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-list lines="none">
+    <ion-list-header>
+      <ion-label>Notes</ion-label>
+    </ion-list-header>
+    <ion-item>
+      <ion-toggle [(ngModel)] = "displayPreview" (ionChange)="toggleDisplayPreview()"></ion-toggle>
+      Display preview of image
+    </ion-item>
+    <ion-item>
+      <ion-toggle [(ngModel)] = "listDirection"></ion-toggle>
+      Sort notes in Descending order
+    </ion-item>
+    <ion-list-header>
+      <ion-label>Search</ion-label>
+    </ion-list-header>
+    <ion-item>
+      <ion-toggle [(ngModel)] = "searchDescriptions"></ion-toggle>
+      Search note descriptions (slower)
+    </ion-item>
+  </ion-list>
+</ion-content>
